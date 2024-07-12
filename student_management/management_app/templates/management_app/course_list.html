@@ -1,0 +1,31 @@
+{% extends 'management_app/base.html' %}
+
+{% block title %}Course List{% endblock %}
+
+{% block content %}
+<h1>Course List</h1>
+<a href="{% url 'management_app:course_create' %}" class="btn btn-primary">Add Course</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for course in courses %}
+        <tr>
+            <td>{{ course.id }}</td>
+            <td>{{ course.name }}</td>
+            <td>{{ course.description }}</td>
+            <td>
+                <a href="{% url 'management_app:course_update' course.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'management_app:course_delete' course.id %}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,69 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Django App{% endblock %}</title>
+    <!-- Add your CSS links or styles here -->
+    <style>
+        /* Example basic styling for the navbar */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding-top: 60px; /* Adjust according to your navbar height */
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .navbar a.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .logout-btn {
+            float: right;
+            padding: 14px 16px;
+            background-color: #dc3545; /* Bootstrap danger color */
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background-color: #c82333; /* Darken on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="{% url 'management_app:index' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+    <!-- Add more navigation links as needed -->
+
+    <a href="{% url 'management_app:logout' %}" class="logout-btn">Logout</a>
+    <!-- The logout button now uses href to link to the logout URL -->
+</div>
+
+<div class="content">
+    <!-- Content of the child templates will go here -->
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>
