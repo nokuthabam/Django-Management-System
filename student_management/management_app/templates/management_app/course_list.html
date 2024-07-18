@@ -4,8 +4,9 @@
 
 {% block content %}
 <h1>Course List</h1>
-<a href="{% url 'management_app:course_create' %}" class="btn btn-primary">Add Course</a>
-<table class="table table-striped">
+<a href="{% url 'management_app:course_create' %}" class="btn btn-primary mb-3">Add Course</a>
+<a href="{% url 'management_app:admin_home' %}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+<table class="table table-striped table-dark">
     <thead>
         <tr>
             <th>ID</th>
