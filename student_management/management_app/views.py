@@ -99,10 +99,10 @@ def admin_home(request):
     Returns:
         HttpResponse object
     """
-    course_count = Instructor.objects.all().count()
+    course_count = Course.objects.all().count()
     student_count = Student.objects.all().count()
     instructor_count = Instructor.objects.all().count()
-    subject_count = Instructor.objects.all().count()
+    subject_count = Subject.objects.all().count()
 
     context = {
         'course_count': course_count,
@@ -146,6 +146,7 @@ def course_create(request):
     return render(request, 'management_app/course_form.html', {'form': form})
 
 
+@login_required
 def course_update(request, pk):
     """
     This view will render the course update page.
@@ -166,6 +167,7 @@ def course_update(request, pk):
     return render(request, 'management_app/course_form.html', {'form': form})
 
 
+@login_required
 def course_delete(request, pk):
     """
     This view will delete the course.
@@ -180,3 +182,5 @@ def course_delete(request, pk):
         course.delete()
         return redirect('management_app:course_list')
     return render(request, 'management_app/course_confirm_delete.html', {'course': course})
+
+
