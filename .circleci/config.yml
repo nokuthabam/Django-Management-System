@@ -3,7 +3,7 @@ version: 2.1
 executors:
   python-executor:
     docker:
-      - image: circleci/python:3.12  # You can specify a different Python version
+      - image: circleci/python:3.8  # You can specify a different Python version
     working_directory: ~/repo
 
 jobs:
