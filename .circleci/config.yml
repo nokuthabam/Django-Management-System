@@ -4,7 +4,7 @@ executors:
   python-executor:
     docker:
       - image: circleci/python:3.8
-    working_directory: ~/repo
+    working_directory: ~/repo/student_management
 
 jobs:
   test:
@@ -17,7 +17,7 @@ jobs:
           name: Install dependencies
           command: |
             python -m pip install --upgrade pip
-            pip install -r student_management/requirements.txt
+            pip install -r requirements.txt
       - run:
           name: Run database migrations
           command: |
