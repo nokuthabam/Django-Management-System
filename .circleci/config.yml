@@ -33,7 +33,6 @@ jobs:
           command: |
             coverage xml
       - codecov/upload:
-          name: Upload coverage to Codecov
           file: ./coverage.xml
 
 workflows:
