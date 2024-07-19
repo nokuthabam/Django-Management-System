@@ -53,6 +53,7 @@ To run this project on your local system, follow these steps:
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/nokuthabam/Django-Management-System/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/nokuthabam/Django-Management-System/tree/main)
 
 ## Code Coverage: CodeCov Badge
+[![codecov](https://codecov.io/gh/nokuthabam/Django-Management-System/graph/badge.svg?token=BS0TF3H3NB)](https://codecov.io/gh/nokuthabam/Django-Management-System)
 
 ## Project Author
 Nokuthaba Moyo
