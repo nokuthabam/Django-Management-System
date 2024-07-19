@@ -26,6 +26,7 @@ jobs:
             python manage.py test
     environment:
       DJANGO_SETTINGS_MODULE: student_management.settings
+      DATABASE_URL: postgres://student_management:student_management@localhost:5432/student_management
 
 workflows:
   version: 2
