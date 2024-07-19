@@ -1,7 +1,6 @@
 Django
 psycopg2-binary
 django-extensions
-crispy-forms
 django-crispy-forms
 spacy
 djangorestframework
