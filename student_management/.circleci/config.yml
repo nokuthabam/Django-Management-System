@@ -1,0 +1,35 @@
+version: 2.1
+
+executors:
+  python-executor:
+    docker:
+      - image: circleci/python:3.12  # You can specify a different Python version
+    working_directory: ~/repo
+
+jobs:
+  test:
+    executor: python-executor
+    steps:
+      - checkout  # Checks out the source code
+      - run:
+          name: Install dependencies
+          command: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+      - run:
+          name: Run database migrations
+          command: |
+            python manage.py migrate
+      - run:
+          name: Run tests
+          command: |
+            python manage.py test
+  environment:
+    DJANGO_SETTINGS_MODULE: student_management.settings
+    DATABASE_URL: postgres://student_management:student_management@localhost:5432/student_management
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
