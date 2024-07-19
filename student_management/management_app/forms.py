@@ -25,7 +25,8 @@ class UserRegistrationForm(forms.ModelForm):
     email = forms.EmailField()
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
-    password = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)
     # user type
     user_type = forms.ChoiceField(choices=[
                 ('Admin', 'Admin'),
@@ -35,7 +36,12 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password']
+        fields = ['username',
+                  'email',
+                  'first_name',
+                  'last_name',
+                  'password1',
+                  'password2']
 
     def clean_username(self):
         """
@@ -46,6 +52,17 @@ class UserRegistrationForm(forms.ModelForm):
             raise ValidationError('Username already exists.')
         return username
     
+    def clean(self):
+        """
+        Ensure that the passwords match.
+        """
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
+        if password1 != password2:
+            raise ValidationError('The two password fields must match.')
+        return cleaned_data
+    
     def save(self, user_type):
         """
         Save the user object to the database.
@@ -55,15 +72,18 @@ class UserRegistrationForm(forms.ModelForm):
             email=self.cleaned_data['email'],
             first_name=self.cleaned_data['first_name'],
             last_name=self.cleaned_data['last_name'],
-            password=self.cleaned_data['password']
+            password=self.cleaned_data['password1']
         )
         if user_type == 'Admin':
             AdminUser.objects.create(user=user)
         elif user_type == 'Instructor':
-            Instructor.objects.create(user=user)
+            #Set default course and subject
+            Instructor.objects.create(user=user, course_id=None, subject_id=None)
         else:
             # get the course
-            Student.objects.create(user=user)
+            # Set default course and subjects
+            student = Student.objects.create(user=user, course_id=None)
+            student.subjects.set([])
         return user
     
 
