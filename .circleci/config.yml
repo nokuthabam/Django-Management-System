@@ -3,14 +3,16 @@ version: 2.1
 executors:
   python-executor:
     docker:
-      -  image: circleci/python:3.9
+      - image: circleci/python:3.8
     working_directory: ~/repo
 
 jobs:
   test:
-    executor: python-executor
+    docker:
+      - image: circleci/python:3.8
+      - image: postgres:12  # Use the appropriate version for your project
     steps:
-      - checkout  # Checks out the source code
+      - checkout
       - run:
           name: Install dependencies
           command: |
