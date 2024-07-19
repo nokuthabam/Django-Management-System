@@ -9,7 +9,7 @@ executors:
 jobs:
   test:
     docker:
-      - image: circleci/python:3.8
+      - image: circleci/python:3.12
       - image: postgres:12  # Use the appropriate version for your project
     steps:
       - checkout
