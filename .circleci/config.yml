@@ -32,18 +32,12 @@ jobs:
           name: Generate coverage report
           command: |
             coverage xml
+      - codecov/upload:
+          name: Upload coverage to Codecov
+          file: ./coverage.xml
 
 workflows:
   version: 2
   test:
     jobs:
       - test
-  upload-to-codecov:
-    jobs:
-      - test
-      - codecov/upload:
-          requires:
-            - test
-          with:
-            file: ./coverage.xml
-
