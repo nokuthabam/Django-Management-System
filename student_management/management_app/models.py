@@ -61,7 +61,7 @@ class Student(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
-    subjects = models.ManyToManyField(Subject)
+    subjects = models.ManyToManyField(Subject, blank=True)
     user_type = models.CharField(max_length=100, default='student')
 
     def __str__(self):
@@ -79,8 +79,8 @@ class Instructor(models.Model):
         subject (Subject): The subject the instructor teaches.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True)
     user_type = models.CharField(max_length=100, default='instructor')
 
     def __str__(self):
