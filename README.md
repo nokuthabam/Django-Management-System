@@ -60,4 +60,4 @@ Nokuthaba Moyo
 
 ## License
 
-Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more information.
+Distributed under the MIT License. See [`LICENSE`](https://github.com/nokuthabam/Django-Management-System/blob/main/LICENSE.txt) for more information.
