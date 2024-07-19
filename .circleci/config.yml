@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@4.0.1
+
 executors:
   python-executor:
     docker:
@@ -24,13 +27,22 @@ jobs:
       - run:
           name: Run tests
           command: |
-            python manage.py test
-    environment:
-      DJANGO_SETTINGS_MODULE: student_management.settings
-      DATABASE_URL: postgres://student_management:student_management@localhost:5432/student_management
+            coverage run --source='.' manage.py test
+      - run:
+          name: Generate coverage report
+          command: |
+            coverage xml
 
 workflows:
   version: 2
   test:
     jobs:
       - test
+  upload-to-codecov:
+    jobs:
+      - test
+      - codecov/upload:
+          requires:
+            - test
+          with:
+            file: ./coverage.xml
