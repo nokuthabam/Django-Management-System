@@ -1,0 +1,220 @@
+{% extends 'management_app/admin_templates/base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">Welcome to the Admin Dashboard</h1>
+
+<h2 class="mt-5">Statistics:</h2>
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-primary h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h5 class="card-title"><i class="fas fa-book"></i> Courses</h5>
+                <p class="card-text display-4">{{ course_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-success h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h5 class="card-title"><i class="fas fa-book-open"></i> Subjects</h5>
+                <p class="card-text display-4">{{ subject_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-warning h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h5 class="card-title" style="color: #ffffff;"><i class="fas fa-user-graduate"></i> Students</h5>
+                <p class="card-text display-4" style="color: #ffffff;">{{ student_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-danger h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h5 class="card-title"><i class="fas fa-chalkboard-teacher"></i> Instructors</h5>
+                <p class="card-text display-4">{{ instructor_count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="mt-5">Course Statistics</h2>
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card bg-light h-100">
+            <div class="card-header">Students per Course</div>
+            <ul class="list-group list-group-flush">
+                {% for course, student_count in courses_with_student_count.items %}
+                <li class="list-group-item">
+                    {{ course.name }}: {{ student_count }} Students
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card bg-light h-100">
+            <div class="card-header">Subjects per Course</div>
+            <ul class="list-group list-group-flush">
+                {% for course, subject_count in courses_with_subject_count.items %}
+                <li class="list-group-item">
+                    {{ course.name }}: {{ subject_count }} Subjects
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card bg-light h-100">
+            <div class="card-header">Instructors per Course</div>
+            <ul class="list-group list-group-flush">
+                {% for course, instructor_count in courses_with_instructor_count.items %}
+                <li class="list-group-item">
+                    {{ course.name }}: {{ instructor_count }} Instructors
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<h2 class="mt-5">Course Statistics</h2>
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card bg-light">
+            <div class="card-header">Students per Course</div>
+            <div class="card-body">
+                <canvas id="studentsPerCourseChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card bg-light">
+            <div class="card-header">Subjects per Course</div>
+            <div class="card-body">
+                <canvas id="subjectsPerCourseChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card bg-light">
+            <div class="card-header">Instructors per Course</div>
+            <div class="card-body">
+                <canvas id="instructorsPerCourseChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="mt-5">Manage Entities:</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <a href="{% url 'management_app:course_list' %}" class="custom-btn btn-courses btn-block">
+                <i class="fas fa-book"></i> Manage Courses
+            </a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="{% url 'management_app:course_list' %}" class="custom-btn btn-subjects btn-block">
+                <i class="fas fa-clipboard-list"></i> Manage Subjects
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <a href="{% url 'management_app:course_list' %}" class="custom-btn btn-students btn-block">
+                <i class="fas fa-user-graduate"></i> Manage Students
+            </a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="{% url 'management_app:course_list' %}" class="custom-btn btn-instructors btn-block">
+                <i class="fas fa-chalkboard-teacher"></i> Manage Instructors
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Chart.js library -->
+{% block scripts %}
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Data for the charts
+        const studentsData = {{ students_per_course_data|safe }};
+        const subjectsData = {{ subjects_per_course_data|safe }};
+        const instructorsData = {{ instructors_per_course_data|safe }};
+
+        // Students per Course Bar Chart
+        const ctx1 = document.getElementById('studentsPerCourseChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: studentsData.labels,
+                datasets: [{
+                    label: 'Number of Students',
+                    data: studentsData.values,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Subjects per Course Pie Chart
+        const ctx2 = document.getElementById('subjectsPerCourseChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: subjectsData.labels,
+                datasets: [{
+                    label: 'Subjects per Course',
+                    data: subjectsData.values,
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 206, 86, 1)', 'rgba(153, 102, 255, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        // Instructors per Course Bar Chart
+        const ctx3 = document.getElementById('instructorsPerCourseChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: instructorsData.labels,
+                datasets: [{
+                    label: 'Number of Instructors',
+                    data: instructorsData.values,
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+{% endblock %}
