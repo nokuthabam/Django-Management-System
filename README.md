@@ -47,7 +47,12 @@ To run this project on your local system, follow these steps:
 ## Usage
     - Visit http://127.0.0.1:8000/ to access the login page
    - Click register as an admin user in order to be able to manage the database tables.
-   - Once logged i as the admin, you can navigate through the website's various pages.
+   - Once logged in as the admin, you can navigate through the website's various pages.
+
+#### Admin Dashboard
+   - From the Admin Dashboard, you can manage Courses, Subjects, Students and Instructors.
+![image](https://github.com/user-attachments/assets/f09d8cfb-008b-4484-8010-0ccd60c03acb)
+
 
 ## Continuous Integration: CircleCI Badge
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/nokuthabam/Django-Management-System/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/nokuthabam/Django-Management-System/tree/main)
