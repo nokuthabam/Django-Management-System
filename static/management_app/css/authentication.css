@@ -1,0 +1,23 @@
+body {
+    font-family: "Century Gothic", 'Lato', sans-serif;
+    background: #000; /* Black background for the whole page */
+    color: #fff; /* White text color */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #000; /* Black background for the navbar */
+}
+
+.nav-link {
+    color: #fff !important; /* Ensure the text is white */
+}
+
+.nav-link:hover {
+    color: #ddd !important; /* Light gray color on hover */
+}
+
+.container {
+    padding-top: 2em; /* Space for content under the navbar */
+}

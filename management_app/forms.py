@@ -95,11 +95,22 @@ class CourseForm(forms.ModelForm):
         description (str): The course description.
     """
     name = forms.CharField(max_length=100)
-    description = forms.CharField(max_length=500)
-
+    #description = forms.CharField(max_length=500)
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 7, 'cols': 60}),
+        max_length=500)
     class Meta:
         model = Course
         fields = ['name', 'description']
+
+    def clean_name(self):
+        """
+        Ensure that the course name is unique.
+        """
+        name = self.cleaned_data.get('name')
+        if Course.objects.filter(name=name).exists():
+            raise ValidationError('Course with this name already exists.')
+        return name
 
 
 class SubjectForm(forms.ModelForm):

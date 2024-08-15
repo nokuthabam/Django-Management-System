@@ -6,7 +6,7 @@ from .forms import CourseForm, SubjectForm
 from .models import AdminUser, Instructor, Student
 from .models import Course, Subject, Grade, Assignment
 from django.contrib.auth.decorators import login_required
-
+import json
 # Create your views here.
 
 
@@ -87,7 +87,7 @@ def index(request):
     Returns:
         HttpResponse object
     """
-    return render(request, 'management_app/index.html')
+    return render(request, 'management_app/course_templates/index.html')
 
 
 @login_required
@@ -104,13 +104,38 @@ def admin_home(request):
     instructor_count = Instructor.objects.all().count()
     subject_count = Subject.objects.all().count()
 
+    # Additional statistics
+    courses = Course.objects.all()
+    courses_with_student_count = {course: Student.objects.filter(course=course).count() for course in Course.objects.all()}
+    courses_with_subject_count = {course: Subject.objects.filter(course_id=course).count() for course in Course.objects.all()}
+    courses_with_instructor_count = {course: Instructor.objects.filter(course=course).count() for course in Course.objects.all()}
+    courses_with_student_count_json = {course.name: Student.objects.filter(course=course).count() for course in courses}
+    courses_with_subject_count_json = {course.name: Subject.objects.filter(course_id=course.id).count() for course in courses}
+    courses_with_instructor_count_json = {course.name: Instructor.objects.filter(course=course).count() for course in courses}
+
     context = {
         'course_count': course_count,
         'student_count': student_count,
         'instructor_count': instructor_count,
-        'subject_count': subject_count
+        'subject_count': subject_count,
+        'courses_with_student_count': courses_with_student_count,
+        'courses_with_subject_count': courses_with_subject_count,
+        'courses_with_instructor_count': courses_with_instructor_count,
+        'students_per_course_data': json.dumps({
+            'labels': list(courses_with_student_count_json.keys()),
+            'values': list(courses_with_student_count_json.values())
+        }),
+        'subjects_per_course_data': json.dumps({
+            'labels': list(courses_with_subject_count_json.keys()),
+            'values': list(courses_with_subject_count_json.values())
+        }),
+        'instructors_per_course_data': json.dumps({
+            'labels': list(courses_with_instructor_count_json.keys()),
+            'values': list(courses_with_instructor_count_json.values())
+        }),
+
     }
-    return render(request, 'management_app/admin_home.html', context)
+    return render(request, 'management_app/admin_templates/admin_home.html', context)
 
 
 # Crud operations for Course
@@ -124,7 +149,7 @@ def course_list(request):
         HttpResponse object
     """
     courses = Course.objects.all()
-    return render(request, 'management_app/course_list.html', {'courses': courses})
+    return render(request, 'management_app/course_templates/course_list.html', {'courses': courses})
 
 
 @login_required
@@ -143,7 +168,7 @@ def course_create(request):
             return redirect('management_app:course_list')
     else:
         form = CourseForm()
-    return render(request, 'management_app/course_form.html', {'form': form})
+    return render(request, 'management_app/course_templates/course_form.html', {'form': form})
 
 
 @login_required
@@ -164,7 +189,7 @@ def course_update(request, pk):
             return redirect('management_app:course_list')
     else:
         form = CourseForm(instance=course)
-    return render(request, 'management_app/course_form.html', {'form': form})
+    return render(request, 'management_app/course_templates/course_form.html', {'form': form})
 
 
 @login_required
@@ -181,6 +206,6 @@ def course_delete(request, pk):
     if request.method == 'POST':
         course.delete()
         return redirect('management_app:course_list')
-    return render(request, 'management_app/course_confirm_delete.html', {'course': course})
+    return render(request, 'management_app/course_templates/course_confirm_delete.html', {'course': course})
 
 

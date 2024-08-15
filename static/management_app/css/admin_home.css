@@ -1,0 +1,264 @@
+/* Light Mode (default) */
+body {
+    font-family: "Century Gothic", 'Lato', sans-serif;
+    background-color: #f0f2f5;
+    color: #343a40;
+}
+
+.navbar {
+    background-color: #2c3e50 !important; /* Dark background */
+}
+
+.nav-link, .navbar-brand {
+    color: #ecf0f1 !important;
+}
+
+.table-dark th,
+.table-dark td,
+.table-dark thead th {
+    color: #ffffff;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    font-family: "Century Gothic", 'Lato', sans-serif;
+    background-color: #1c1c1c;
+    color: #f0f2f5;/*#2c3e50;*/
+}
+
+body.dark-mode .navbar {
+    background-color: #1c1c1c !important;
+}
+
+body.dark-mode .nav-link, body.dark-mode .navbar-brand {
+    color:  #bdc3c7 !important;
+}
+
+body.dark-mode .table-dark th,
+body.dark-mode .table-dark td,
+body.dark-mode .table-dark thead th {
+    color: #bdc3c7;
+}
+
+/* Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #b0b0b0;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #27ae60;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+/* Light Mode (default) */
+.nav-link {
+    color: #ffffff !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #27ae60 !important; /* Soft green hover effect */
+}
+
+/* Dark Mode */
+body.dark-mode .nav-link {
+    color: #bdc3c7 !important;
+}
+
+body.dark-mode .nav-link:hover {
+    color: #3498db !important; /* Soft blue hover effect */
+}
+
+.custom-btn {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 8px;
+    text-transform: uppercase;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-courses {
+    background-color: #3498db; /* Cool blue */
+    color: #fff;
+}
+
+.btn-courses:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+.btn-subjects {
+    background-color: #2ecc71; /* Fresh green */
+    color: #fff;
+}
+
+.btn-subjects:hover {
+    background-color: #27ae60; /* Darker green on hover */
+}
+
+.btn-students {
+    background-color: #f1c40f; /* Bright yellow */
+    color: #fff;
+}
+
+.btn-students:hover {
+    background-color: #f39c12; /* Darker yellow on hover */
+}
+
+.btn-instructors {
+    background-color: #e74c3c; /* Vibrant red */
+    color: #fff;
+}
+
+.btn-instructors:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+
+.custom-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 5px;
+    text-transform: uppercase;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    border: 2px solid transparent;
+}
+
+.custom-btn i {
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 24px;
+}
+
+/* Course Button */
+.btn-courses {
+    background-color: #3498db; /* Cool blue */
+    color: #fff;
+    border-color: #2980b9;
+}
+
+.btn-courses:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    color: #fff;
+    border-color: #1f618d;
+}
+
+/* Subjects Button */
+.btn-subjects {
+    background-color: #2ecc71; /* Fresh green */
+    color: #fff;
+    border-color: #27ae60;
+}
+
+.btn-subjects:hover {
+    background-color: #218b4d; /* Darker green on hover */
+    color: #fff;
+    border-color: #208b4c;
+}
+
+/* Students Button */
+.btn-students {
+    background-color: #f1c40f; /* Bright yellow */
+    color: #fff;
+    border-color: #f39c12;
+}
+
+.btn-students:hover {
+    background-color: #f39c12; /* Darker yellow on hover */
+    color: #fff;
+    border-color: #d68910;
+}
+
+/* Instructors Button */
+.btn-instructors {
+    background-color: #e74c3c; /* Vibrant red */
+    color: #fff;
+    border-color: #c0392b;
+}
+
+.btn-instructors:hover {
+    background-color: #c0392b; /* Darker red on hover */
+    color: #fff;
+    border-color: #a93226;
+}
+
+
+/* Default Light Mode Styles */
+.card-header {
+    background-color: #f8f9fa; /* Light background for card headers */
+}
+
+.card.bg-light {
+    background-color: #ffffff; /* Light background for cards */
+    border-color: #e0e0e0; /* Light border for cards */
+}
+
+/* Dark Mode Styles */
+body.dark-mode .card-header {
+    background-color: #343a40; /* Dark background for card headers */
+    color: #ffffff; /* Light text color for card headers */
+}
+
+body.dark-mode .card.bg-light {
+    background-color: #495057; /* Dark background for cards */
+    border-color: #6c757d; /* Dark border for cards */
+}
+
+body.dark-mode .list-group-item {
+    background-color: #495057; /* Dark background for list items */
+    color: #ffffff; /* Light text color for list items */
+}
+

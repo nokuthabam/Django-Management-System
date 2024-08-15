@@ -1,16 +1,72 @@
-<!-- management_app/templates/registration/register.html -->
-
 {% extends 'registration/base.html' %}
 
 {% block title %}Registration - My Django App{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>Register</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Register</button>
-        </form>
-    </div>
+<div class="container">
+    <h1 class="text-center mb-4">Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- First Name -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <input type="text" id="firstName" name="first_name" class="form-control" value="{{ form.first_name.value }}" required />
+            <label class="form-label" for="firstName">First Name</label>
+        </div>
+
+        <!-- Last Name -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <input type="text" id="lastName" name="last_name" class="form-control" value="{{ form.last_name.value }}" required />
+            <label class="form-label" for="lastName">Last Name</label>
+        </div>
+
+        <!-- Username -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <input type="text" id="username" name="username" class="form-control" value="{{ form.username.value }}" required />
+            <label class="form-label" for="username">Username</label>
+        </div>
+
+        <!-- Email -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <input type="email" id="email" name="email" class="form-control" value="{{ form.email.value }}" required />
+            <label class="form-label" for="email">Email</label>
+        </div>
+
+        <!-- Password -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <input type="password" id="password1" name="password1" class="form-control" required />
+            <label class="form-label" for="password1">Password</label>
+        </div>
+
+        <!-- Confirm Password -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <input type="password" id="password2" name="password2" class="form-control" required />
+            <label class="form-label" for="password2">Confirm Password</label>
+        </div>
+
+        <!-- User Type -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="user_type">User Type</label>
+            <select id="user_type" name="user_type" class="form-control" required>
+                <option value="">Select User Type</option>
+                <option value="Admin" {% if form.user_type.value == 'Admin' %}selected{% endif %}>Admin</option>
+                <option value="Instructor" {% if form.user_type.value == 'Instructor' %}selected{% endif %}>Instructor</option>
+                <option value="Student" {% if form.user_type.value == 'Student' %}selected{% endif %}>Student</option>
+            </select>
+        </div>
+
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
+        </div>
+    </form>
+    <p class="text-center">Already a member? <a href="{% url 'management_app:login' %}">Login here</a></p>
+</div>
 {% endblock %}

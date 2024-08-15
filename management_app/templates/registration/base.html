@@ -1,74 +1,21 @@
-<!-- management_app/templates/base.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Django App{% endblock %}</title>
-
+    {% load static %}
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <style>
-        /* Custom styles can be added here */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            padding: 20px;
-            margin: 0;
-        }
+    <!-- MDB CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" integrity="sha512-AB1B3u2wupM5D7UEU9E2H3s3vmeHLwES/9dyz8AfEdjW/yfZ6AEWIXN2XREgD2e8FRMWo+9ptDpHAT2tmGSDFQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        nav {
-            background-color: #333;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #222;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        .content {
-            margin-top: 20px;
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'management_app/css/authentication.css' %}">
 </head>
 <body>
-    <nav>
-        <ul>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'management_app:admin_home' %}" class="btn btn-primary">Admin Dashboard</a></li>
-            <li><a href="{% url 'management_app:logout' %}" class="btn btn-danger">Logout</a></li>
-            {% else %}
-            <li><a href="{% url 'management_app:login' %}" class="btn btn-primary">Login</a></li>
-            <li><a href="{% url 'management_app:signup' %}" class="btn btn-success">Register</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+    
     
     <div class="container">
         {% block content %}
@@ -80,5 +27,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-rgvb+qFdBOMXq1wJN5uXWnqVfVbLNA++yZxS62tAAk1m8zJZ/8wBgMKnL/gBFt/" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+2Qp2S2sfaRvwFbO+ndCbVv/NIW+p6I+8k0" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js" integrity="sha512-BpXcRJyLEdH7I4UzI39P/6MDGOP9McZ/aBQ5FJc1N5Y7B1BZSmRaT3T5N+IXjEBwUvEv9d1e0XzP+Y8UjEbDA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>

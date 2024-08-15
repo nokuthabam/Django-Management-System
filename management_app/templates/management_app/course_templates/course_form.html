@@ -1,0 +1,27 @@
+{% extends 'management_app/course_templates/base.html' %}
+
+{% block title %}Add/Edit Course{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">{{ form.instance.pk|yesno:"Edit Course,Add Course" }}</h1>
+    <form method="post" class="form-container">
+        {% csrf_token %}
+        <div class="form-group">
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}" class="sr-only">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small id="{{ field.id_for_label }}Help" class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">{{ form.instance.pk|yesno:"Update,Create" }}</button>
+            <a href="{% url 'management_app:course_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
